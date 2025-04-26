@@ -26,6 +26,31 @@
 
       <h2>Add Method - {{ add(10, 20, 30) }}</h2>
       <h2>Multiply Method - {{ multiply(10) }}</h2>
+
+      <h2>{{ count }}</h2>
+
+      <button @click="increment(5)">Increment by 5</button>
+      <button v-on:click="increment(10)">Increment by 10</button>
+      <button v-on:click="decrement">Decrement</button>
+
+      <h1>Forms</h1>
+      <form>
+        <label for="name">Name</label>
+        <input type="text" id="name" v-model="formValues.name" />
+        <select v-model="formValues.country">
+          <option value="">Select any country</option>
+          <option value="Sri Lanka">Sri Lanka</option>
+          <option value="Singapore">Singapore</option>
+        </select>
+
+        <label for="remote">Able to work remote</label>
+        <input type="checkbox" id="remote" v-model="formValues.remote" />
+        <pre
+          >{{ formValues.name }}  {{ formValues.country }} {{
+            formValues.remote
+          }}</pre
+        >
+      </form>
     </div>
   </div>
 </template>
@@ -48,6 +73,13 @@ export default {
       isDisabled: false,
       showElement: true,
       baseValue: 20,
+      count: 0,
+
+      formValues: {
+        name: "",
+        country: "",
+        remote: "",
+      },
     };
   },
   methods: {
@@ -59,6 +91,12 @@ export default {
     },
     multiply(num) {
       return num * this.baseValue;
+    },
+    increment(num) {
+      this.count += num;
+    },
+    decrement() {
+      this.count -= 1;
     },
   },
 };
