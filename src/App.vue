@@ -34,7 +34,7 @@
       <button v-on:click="decrement">Decrement</button>
 
       <h1>Forms</h1>
-      <form>
+      <form @submit="submit">
         <label for="name">Name</label>
         <input type="text" id="name" v-model="formValues.name" />
         <select v-model="formValues.country">
@@ -45,13 +45,41 @@
 
         <label for="remote">Able to work remote</label>
         <input type="checkbox" id="remote" v-model="formValues.remote" />
+
+        <label for="yearsOfExpreiince"
+          >How many years of experience you got?</label
+        >
+        <label id="3-5">3-5 years of expreince</label>
+        <input
+          type="radio"
+          id="3-5"
+          value="3-5"
+          v-model="formValues.yearsOfExpereince"
+        />
+        <label id="5-10">5-10 years of expreince</label>
+        <input
+          type="radio"
+          id="5-10"
+          value="5-10"
+          v-model="formValues.yearsOfExpereince"
+        />
+        <label id="10+">10+ years of expreince</label>
+        <input type="radiobutton" />
         <pre
           >{{ formValues.name }}  {{ formValues.country }} {{
             formValues.remote
-          }}</pre
+          }} {{ formValues.yearsOfExpereince }}</pre
         >
+        <div><button>Submit</button></div>
       </form>
     </div>
+
+    <div><h2>Volume controller</h2></div>
+
+    <button @click="increaseVolume">Increment</button>
+    <button @click="decreaseVolume">Decrement</button>
+
+    <h2>Volume is {{ volume }}</h2>
   </div>
 </template>
 
@@ -74,13 +102,22 @@ export default {
       showElement: true,
       baseValue: 20,
       count: 0,
+      volume: 0,
 
       formValues: {
         name: "",
         country: "",
         remote: "",
+        yearsOfExpereince: "",
       },
     };
+  },
+  watch: {
+    volume(newVal, oldVal) {
+      if (newVal > oldVal && newVal === 10) {
+        alert("Volume is at max");
+      }
+    },
   },
   methods: {
     alertUser() {
@@ -97,6 +134,19 @@ export default {
     },
     decrement() {
       this.count -= 1;
+    },
+
+    submit(event) {
+      event.preventDefault();
+      console.log("Form Submitted");
+      console.log("Form values,", this.formValues);
+    },
+    increaseVolume() {
+      this.volume += 1;
+    },
+
+    decreaseVolume() {
+      this.volume -= 1;
     },
   },
 };
