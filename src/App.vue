@@ -80,12 +80,20 @@
     <button @click="decreaseVolume">Decrement</button>
 
     <h2>Volume is {{ volume }}</h2>
+
+    <h2>Imported Components</h2>
+    <TryThis msg="Hello" secondMsg="Bye Bye" />
   </div>
 </template>
 
 <script>
+import TryThis from "./components/TryThis.vue";
+
 export default {
   name: "App",
+  components: {
+    TryThis,
+  },
   data() {
     return {
       names: ["Brusce", "Clark", "Diana"],
